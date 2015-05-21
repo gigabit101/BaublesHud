@@ -1,0 +1,21 @@
+[
+{
+  "modid": "BaublesHud",
+  "name": "Baubles-Hud",
+  "description": "",
+  "version": "1.0.0",
+  "url": "",
+  "updateUrl": "",
+  "authorList": [
+    "Gigabit101"
+    
+  ],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [
+  ],
+  "parent":"",
+  "dependencies": [
+  ]
+}
+]

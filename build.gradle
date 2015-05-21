@@ -1,0 +1,84 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+    }
+}
+
+apply plugin: 'forge'
+
+version = "1.0.0"
+group= "com.gigabit101.BaublesHud" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "BaublesHud"
+
+def grabDep(name, url){
+	ant.get(src: url, dest: 'dep')
+	file("dep/" + url.substring(url.lastIndexOf("/"))).renameTo(file("dep/" + name + ".jar"))
+}
+
+dependencies {
+    def f = new File('dep/')
+    if(f.exists()){
+        f.delete()
+    }
+    f.mkdirs()
+    if(!f.exists()){
+        f.mkdir()
+    }
+	println("  Downloading dependencies!")
+    grabDep('Baubles', 'https://dl.dropboxusercontent.com/u/47135879/Baubles-deobf-1.7.10-1.0.1.4.jar')
+    
+
+
+	println("  Adding dependencies!")
+	 compile files("dep/Baubles.jar")
+	println("  Finished adding dependencies!")
+}
+
+minecraft {
+    version = "10.13.3.1403-1.7.10"
+    assetDir = "eclipse/assets"
+}
+
+dependencies {
+	compile files (
+		'Baubles.jar'
+	)
+}
+
+processResources
+{
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+                
+        // replace version and mcversion
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+        
+    // copy everything else, thats not the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
+jar.doFirst {
+    version = project.minecraft.version + "-" + version;
+    if (System.getenv().BUILD_NUMBER != null) {
+        version += "-" + "${System.getenv().BUILD_NUMBER}"
+    }
+}
