@@ -36,7 +36,7 @@ dependencies {
         f.mkdir()
     }
 	println("  Downloading dependencies!")
-    grabDep('Baubles', 'https://dl.dropboxusercontent.com/u/47135879/Baubles-deobf-1.7.10-1.0.1.4.jar')
+    grabDep('Baubles', 'https://dl.dropboxusercontent.com/u/47135879/Baubles-1.8-1.1.0.0-deobf.jar')
     
 
 
@@ -46,7 +46,7 @@ dependencies {
 }
 
 minecraft {
-    version = "10.13.3.1403-1.7.10"
+    version = "1.8-11.14.0.1295-1.8"
     assetDir = "eclipse/assets"
 }
 
