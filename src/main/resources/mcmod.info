@@ -2,16 +2,16 @@
 {
   "modid": "BaublesHud",
   "name": "Baubles-Hud",
-  "description": "",
-  "version": "1.0.0",
+  "description": "Adds a hud view of all the Baubles currently equipped",
+  "version": "1.1.0",
   "url": "",
-  "updateUrl": "",
+  "updateUrl": "http://minecraft.curseforge.com/mc-mods/230751-baubleshud",
   "authorList": [
     "Gigabit101"
     
   ],
   "credits": "",
-  "logoFile": "",
+  "logoFile": "/assets/baubleshud/textures/logo/logo.png",
   "screenshots": [
   ],
   "parent":"",

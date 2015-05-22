@@ -1,5 +1,7 @@
 package BaublesHud;
 
+import java.io.File;
+
 import net.minecraftforge.common.MinecraftForge;
 import BaublesHud.client.HudBaubles;
 import BaublesHud.lib.ModInfo;
@@ -13,6 +15,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(name = ModInfo.MOD_NAME, modid = ModInfo.MOD_ID, version = ModInfo.MOD_VERSION, dependencies = ModInfo.MOD_DEPENDENCIES)
 public class BaublesHud {
+	public static ConfigBaublesHud config;
 
 	@Instance(ModInfo.MOD_ID)
 	public static BaublesHud instance;
@@ -23,6 +26,10 @@ public class BaublesHud {
 	@Mod.EventHandler
 	public void preinit(FMLPreInitializationEvent event) 
 	{
+		instance = this;
+		String path = event.getSuggestedConfigurationFile().getAbsolutePath().replace(ModInfo.MOD_ID, "BaublesHub");
+		config = ConfigBaublesHud.initialize(new File(path));
+		
 		MinecraftForge.EVENT_BUS.register(this);
 		MinecraftForge.EVENT_BUS.register(HudBaubles.instancemain);
 	}
