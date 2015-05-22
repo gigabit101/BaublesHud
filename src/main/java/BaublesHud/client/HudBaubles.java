@@ -25,7 +25,7 @@ public class HudBaubles {
 	public static ConfigBaublesHud config;
 	public static HudBaubles instancemain = new HudBaubles();
 	private static Minecraft mc = Minecraft.getMinecraft();
-    private static ScaledResolution   scaledResolution;
+	private static ScaledResolution scaledResolution;
 	public static int LocX;
 	public static int LocY;
 	public static int LocOffsetX;
@@ -113,9 +113,8 @@ public class HudBaubles {
 		
 		if (mc.inGameHasFocus || (mc.currentScreen != null && mc.gameSettings.showDebugInfo)) 
 		{
-            scaledResolution = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
-            
-            drawbaublesHudIcons(event.resolution);
+			scaledResolution = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
+			drawbaublesHudIcons(event.resolution);
 		}
 	}
 	
