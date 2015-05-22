@@ -125,53 +125,22 @@ public class HudBaubles {
 		InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
 
 		ItemStack stack0 = inv.getStackInSlot(0);
-		if (stack0 != null) 
-		{
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			GL11.glDisable(GL11.GL_LIGHTING);
-			Item item0 = stack0.getItem();
-			IIcon icon1 = item0.getIconFromDamage(0);
-
-			RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine,
-							new ItemStack(item0), LocX , LocY);
-		}
-
 		ItemStack stack1 = inv.getStackInSlot(1);
-		if (stack1 != null) 
-		{
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			GL11.glDisable(GL11.GL_LIGHTING);
-			Item item1 = stack1.getItem();
-			IIcon icon1 = item1.getIconFromDamage(0);
-
-			RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine,
-							new ItemStack(item1), LocX + LocOffsetX, LocY + LocOffsetY);
-		}
-
 		ItemStack stack2 = inv.getStackInSlot(2);
-		if (stack2 != null) 
-		{
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			GL11.glDisable(GL11.GL_LIGHTING);
-			Item item2 = stack2.getItem();
-			IIcon icon2 = item2.getIconFromDamage(0);
-
-			RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine,
-							new ItemStack(item2), LocX + LocOffsetX + LocOffsetX, LocY + LocOffsetY + LocOffsetY);
-		}
-
 		ItemStack stack3 = inv.getStackInSlot(3);
-		if (stack3 != null) 
+
+		renderItemstack(mc, stack0, LocX , LocY);
+		renderItemstack(mc, stack1, LocX + LocOffsetX, LocY + LocOffsetY);
+		renderItemstack(mc, stack2, LocX + LocOffsetX + LocOffsetX, LocY + LocOffsetY + LocOffsetY);
+		renderItemstack(mc, stack3, LocX + LocOffsetX + LocOffsetX + LocOffsetX, LocY + LocOffsetY + LocOffsetY + LocOffsetY);
+	}
+	
+	public void renderItemstack(Minecraft mc, ItemStack stack, int x, int y)
+	{
+		if (stack != null)
 		{
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			GL11.glDisable(GL11.GL_LIGHTING);
-			Item item3 = stack3.getItem();
-			IIcon icon3 = item3.getIconFromDamage(0);
-
-			RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine,
-							new ItemStack(item3), LocX + LocOffsetX + LocOffsetX + LocOffsetX, LocY + LocOffsetY + LocOffsetY + LocOffsetY);
+			RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
 		}
-
 	}
 
 }
