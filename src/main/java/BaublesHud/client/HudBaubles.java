@@ -2,12 +2,9 @@ package BaublesHud.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -132,8 +129,8 @@ public class HudBaubles {
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			GL11.glDisable(GL11.GL_LIGHTING);
 			Item item0 = stack0.getItem();
-            mc.getRenderItem().renderItemIntoGUI(stack0, LocX, LocY);
-			mc.getRenderItem().renderItemOverlays(mc.fontRendererObj, stack0, LocX, LocY);
+            mc.getRenderItem().renderItemIntoGUI(new ItemStack(item0), LocX, LocY);
+			mc.getRenderItem().renderItemOverlays(mc.fontRendererObj, new ItemStack(item0), LocX, LocY);
 		}
 
 		ItemStack stack1 = inv.getStackInSlot(1);
@@ -142,8 +139,8 @@ public class HudBaubles {
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			GL11.glDisable(GL11.GL_LIGHTING);
 			Item item1 = stack1.getItem();
-            mc.getRenderItem().renderItemIntoGUI(stack1, LocX + LocOffsetX, LocY +LocOffsetY);
-			mc.getRenderItem().renderItemOverlays(mc.fontRendererObj, stack1, LocX + LocOffsetX, LocY +LocOffsetY);
+            mc.getRenderItem().renderItemIntoGUI(new ItemStack(item1), LocX + LocOffsetX, LocY +LocOffsetY);
+			mc.getRenderItem().renderItemOverlays(mc.fontRendererObj, new ItemStack(item1), LocX + LocOffsetX, LocY +LocOffsetY);
 		}
 
 		ItemStack stack2 = inv.getStackInSlot(2);
@@ -152,8 +149,8 @@ public class HudBaubles {
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			GL11.glDisable(GL11.GL_LIGHTING);
 			Item item2 = stack2.getItem();
-            mc.getRenderItem().renderItemIntoGUI(stack2, LocX + LocOffsetX + LocOffsetX, LocY + LocOffsetY + LocOffsetY);
-			mc.getRenderItem().renderItemOverlays(mc.fontRendererObj, stack2, LocX + LocOffsetX + LocOffsetX, LocY + LocOffsetY + LocOffsetY);
+            mc.getRenderItem().renderItemIntoGUI(new ItemStack(item2), LocX + LocOffsetX + LocOffsetX, LocY + LocOffsetY + LocOffsetY);
+			mc.getRenderItem().renderItemOverlays(mc.fontRendererObj, new ItemStack(item2), LocX + LocOffsetX + LocOffsetX, LocY + LocOffsetY + LocOffsetY);
 		}
 
 		ItemStack stack3 = inv.getStackInSlot(3);
@@ -162,8 +159,8 @@ public class HudBaubles {
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			GL11.glDisable(GL11.GL_LIGHTING);
 			Item item3 = stack3.getItem();
-            mc.getRenderItem().renderItemIntoGUI(stack2, LocX + LocOffsetX + LocOffsetX + LocOffsetX, LocY + LocOffsetY + LocOffsetY + LocOffsetY);
-			mc.getRenderItem().renderItemOverlays(mc.fontRendererObj, stack2, LocX + LocOffsetX + LocOffsetX + LocOffsetX, LocY + LocOffsetY + LocOffsetY + LocOffsetY);
+            mc.getRenderItem().renderItemIntoGUI(new ItemStack(item3), LocX + LocOffsetX + LocOffsetX + LocOffsetX, LocY + LocOffsetY + LocOffsetY + LocOffsetY);
+			mc.getRenderItem().renderItemOverlays(mc.fontRendererObj, new ItemStack(item3), LocX + LocOffsetX + LocOffsetX + LocOffsetX, LocY + LocOffsetY + LocOffsetY + LocOffsetY);
 		}
 
 	}

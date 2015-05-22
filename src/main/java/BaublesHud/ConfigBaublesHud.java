@@ -2,7 +2,6 @@ package BaublesHud;
 
 import java.io.File;
 
-import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.config.Configuration;
 
 public class ConfigBaublesHud {
