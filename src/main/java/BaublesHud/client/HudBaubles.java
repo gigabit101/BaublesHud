@@ -12,6 +12,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 
 import org.lwjgl.opengl.GL11;
 
+import BaublesHud.ConfigBaublesHud;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.common.eventhandler.EventPriority;
@@ -21,11 +22,21 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class HudBaubles {
 
+	public static ConfigBaublesHud config;
 	public static HudBaubles instancemain = new HudBaubles();
 	private static Minecraft mc = Minecraft.getMinecraft();
-	public static int LocX = 1;
-	public static int LocY = 1;
-	private int guiLeft, guiTop;
+    private static ScaledResolution   scaledResolution;
+	public static int LocX;
+	public static int LocY;
+	public static int LocOffsetX;
+	public static int LocOffsetY;
+	public boolean isVertical = config.vertical;
+	public boolean isHorizontal = config.horizontal;
+	public boolean isTopLeft = config.topLeft;
+	public boolean isTopRight = config.topRight;
+	public boolean isBottomLeft = config.bottomLeft;
+	public boolean isBottomRight = config.bottomRight;
+
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent(priority = EventPriority.NORMAL)
@@ -36,14 +47,80 @@ public class HudBaubles {
 			return;
 		}
 
+		if (isTopLeft)
+		{
+			if(isHorizontal)
+			{
+				LocX = 1;
+				LocY = 1;
+				LocOffsetX = LocX + 15;
+			}
+			else if(isVertical)
+			{
+				LocX = 1;
+				LocX = 1;
+				LocOffsetY = LocY + 15;
+			}
+		}
+		
+		else if (isTopRight)
+		{
+			if (isHorizontal)
+			{
+				LocX = event.resolution.getScaledWidth() - 60;
+				LocY = 1;
+				LocOffsetX =  15;
+			}
+			else if (isVertical)
+			{
+				LocX = event.resolution.getScaledWidth() - 20;
+				LocY = 1;
+				LocOffsetY = LocY + 15;
+			}
+		}
+		
+		else if (isBottomLeft)
+		{
+			if (isHorizontal)
+			{
+				LocX = 1;
+				LocY = event.resolution.getScaledHeight() - 20;
+				LocOffsetX = LocX + 15;
+			}
+			if (isVertical)
+			{
+				LocX = 1;
+				LocY = event.resolution.getScaledHeight() - 60;
+				LocOffsetY = 15;
+			}
+		}
+		else if (isBottomRight) 
+		{
+			if (isHorizontal)
+			{
+				LocX = event.resolution.getScaledWidth() - 60;
+				LocY = event.resolution.getScaledHeight() - 20;
+				LocOffsetX = 15;
+			}
+			if (isVertical)
+			{
+				LocX = event.resolution.getScaledWidth() - 20;
+				LocY = event.resolution.getScaledHeight() - 60;
+				LocOffsetX = 0;
+			}
+			
+		}
+		
 		if (mc.inGameHasFocus || (mc.currentScreen != null && mc.gameSettings.showDebugInfo)) 
 		{
-			drawbaublesHud(event.resolution);
+            scaledResolution = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
+            
+            drawbaublesHudIcons(event.resolution);
 		}
-
 	}
+	
 
-	public void drawbaublesHud(ScaledResolution res) 
+	public void drawbaublesHudIcons(ScaledResolution res) 
 	{
 		EntityPlayer player = mc.thePlayer;
 		InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
@@ -57,7 +134,7 @@ public class HudBaubles {
 			IIcon icon1 = item0.getIconFromDamage(0);
 
 			RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine,
-							new ItemStack(item0), LocX + 5, LocY + 100);
+							new ItemStack(item0), LocX , LocY);
 		}
 
 		ItemStack stack1 = inv.getStackInSlot(1);
@@ -69,7 +146,7 @@ public class HudBaubles {
 			IIcon icon1 = item1.getIconFromDamage(0);
 
 			RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine,
-							new ItemStack(item1), LocX + 5, LocY + 120);
+							new ItemStack(item1), LocX + LocOffsetX, LocY + LocOffsetY);
 		}
 
 		ItemStack stack2 = inv.getStackInSlot(2);
@@ -81,7 +158,7 @@ public class HudBaubles {
 			IIcon icon2 = item2.getIconFromDamage(0);
 
 			RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine,
-							new ItemStack(item2), LocX + 5, LocY + 140);
+							new ItemStack(item2), LocX + LocOffsetX + LocOffsetX, LocY + LocOffsetY + LocOffsetY);
 		}
 
 		ItemStack stack3 = inv.getStackInSlot(3);
@@ -93,7 +170,7 @@ public class HudBaubles {
 			IIcon icon3 = item3.getIconFromDamage(0);
 
 			RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine,
-							new ItemStack(item3), LocX + 5, LocY + 160);
+							new ItemStack(item3), LocX + LocOffsetX + LocOffsetX + LocOffsetX, LocY + LocOffsetY + LocOffsetY + LocOffsetY);
 		}
 
 	}
