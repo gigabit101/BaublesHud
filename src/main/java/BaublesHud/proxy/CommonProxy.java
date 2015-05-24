@@ -7,4 +7,9 @@ public class CommonProxy {
 		// NOOP
 	}
 
+	public void registerKeybindings() 
+	{
+		// NOOP
+	}
+
 }

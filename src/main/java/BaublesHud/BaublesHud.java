@@ -2,8 +2,8 @@ package BaublesHud;
 
 import java.io.File;
 
-import net.minecraftforge.common.MinecraftForge;
 import BaublesHud.client.HudBaubles;
+import BaublesHud.config.ConfigBaublesHud;
 import BaublesHud.lib.ModInfo;
 import BaublesHud.proxy.CommonProxy;
 import cpw.mods.fml.common.Mod;
@@ -27,10 +27,11 @@ public class BaublesHud {
 	public void preinit(FMLPreInitializationEvent event) 
 	{
 		instance = this;
-		String path = event.getSuggestedConfigurationFile().getAbsolutePath().replace(ModInfo.MOD_ID, "BaublesHub");
+		String path = event.getSuggestedConfigurationFile().getAbsolutePath().replace(ModInfo.MOD_ID, "BaublesHud");
 		config = ConfigBaublesHud.initialize(new File(path));
 		
 		proxy.registerEvents();
+		proxy.registerKeybindings();
 	}
 
 }
