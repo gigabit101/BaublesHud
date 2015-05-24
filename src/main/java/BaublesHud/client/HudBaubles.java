@@ -144,7 +144,7 @@ public class HudBaubles {
 	{
 		if (stack != null)
 		{
-			RenderItem.getInstance().renderItemIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
+			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
 		}
 	}
 	
