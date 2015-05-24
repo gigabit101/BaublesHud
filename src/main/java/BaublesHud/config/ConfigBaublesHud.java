@@ -51,6 +51,4 @@ public class ConfigBaublesHud {
         if (config.hasChanged())
             config.save();
     }
-
-
 }

@@ -69,7 +69,6 @@ public class HudBaubles {
 				LocOffsetX = 0;
 				LocOffsetY = LocY + 15;
 			}
-
 			else if (hudPosition == 2)
 			{
 				LocX = event.resolution.getScaledWidth() - 60;
@@ -84,7 +83,6 @@ public class HudBaubles {
 				LocOffsetX = 0;
 				LocOffsetY = LocY + 15;
 			}
-		
 			else if (hudPosition == 4)
 			{
 				LocX = 1;
@@ -113,8 +111,6 @@ public class HudBaubles {
 				LocOffsetX = 0;
 				LocOffsetY = 15;
 			}
-
-			config.hudPosition = hudPosition;
 
 		if (mc.inGameHasFocus || (mc.currentScreen != null && mc.gameSettings.showDebugInfo)) 
 		{
