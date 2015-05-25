@@ -45,16 +45,18 @@ public class HudBaubles {
 		
 		if (key.config.isPressed() == true)
 		{
+			// Adds 1 to the current screen position when Keybinding is pressed.
 			if(hudPosition !=7)
 			{
 				hudPosition += 1;
 			}
+			// If current Keybinding position is 7 resets it to 0
 			else if(hudPosition == 7)
 			{
 				hudPosition = 0;
 			}
 		}
-
+			// Determines where to put the Hud depending on int
 			if(hudPosition == 0)
 			{
 				LocX = 1;
@@ -119,17 +121,17 @@ public class HudBaubles {
 		}
 		
 	}
-
+	// Draws the Hud
 	public void drawbaublesHudIcons(ScaledResolution res) 
 	{
 		EntityPlayer player = mc.thePlayer;
 		InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
-
+		//Gets the ItemStack from the players baubles inventory.
 		ItemStack stack0 = inv.getStackInSlot(0);
 		ItemStack stack1 = inv.getStackInSlot(1);
 		ItemStack stack2 = inv.getStackInSlot(2);
 		ItemStack stack3 = inv.getStackInSlot(3);
-
+		// Renders the ItemStacks icon to the hud in the correct X, Y positions 
 		renderItemstack(mc, stack0, LocX , LocY);
 		renderItemstack(mc, stack1, LocX + LocOffsetX, LocY + LocOffsetY);
 		renderItemstack(mc, stack2, LocX + LocOffsetX + LocOffsetX, LocY + LocOffsetY + LocOffsetY);
@@ -140,7 +142,9 @@ public class HudBaubles {
 	{
 		if (stack != null)
 		{
+			// Renders Item Icon.
 			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
+			// Renders Item Overlay example durability bar
 			RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
 			stack.getItem().showDurabilityBar(stack);
 		}
