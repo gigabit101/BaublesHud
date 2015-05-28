@@ -4,9 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 
@@ -23,8 +21,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class HudBaubles
 {
-	public static ConfigBaublesHud config;
-	public static HudBaubles instancemain = new HudBaubles();
+	public static ConfigBaublesHud config = ConfigBaublesHud.instance();
+	public static final HudBaubles instancemain = new HudBaubles();
 	private static Minecraft mc = Minecraft.getMinecraft();
 	public static KeyBindings key;
 	public static int LocX;
@@ -40,12 +38,10 @@ public class HudBaubles
 		if (event.isCancelable() || event.type != ElementType.ALL)
 			return;
 
-		// Adds 1 to the current screen position when Keybinding is pressed.
 		if (key.config.isPressed() == true)
 			hudPosition = (hudPosition + 1) % 8;
 
-		// Following Code Determines HUD Position
-		
+		// Following Code Determines Hud Position
 		// Setup Flags
 		boolean isOnLeft = ((hudPosition / 2) % 2 == 0);
 		boolean isOnTop = hudPosition <= 3;
@@ -63,22 +59,21 @@ public class HudBaubles
 		else
 			LocY = event.resolution.getScaledHeight() - 15;
 
-		// Following Code Sets Up Offsets. Determines HUD Orientation
-		if (isHorz) { // Horizontal HUD
+		// Following Code Sets Up Offsets and Determines Hud Orientation
+		if (isHorz) { // Horizontal Hud
 			LocOffsetX = (isOnLeft ? 15 : -15);
 			LocOffsetY = 0;
-		} else { // Vertical HUD
+		} else { // Vertical Hud
 			LocOffsetX = 0;
 			LocOffsetY = (isOnTop ? 15 : -15);
 		}
 
 		if (mc.inGameHasFocus || (mc.currentScreen != null && mc.gameSettings.showDebugInfo))
-			drawbaublesHudIcons(event.resolution);
-		
+			drawBaublesHudIcons(event.resolution);
 	}
 
 	// Draws the Hud
-	public void drawbaublesHudIcons(ScaledResolution res) 
+	public void drawBaublesHudIcons(ScaledResolution res) 
 	{
 		EntityPlayer player = mc.thePlayer;
 		InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
@@ -86,12 +81,12 @@ public class HudBaubles
 		// Renders the ItemStacks from the players baubles inventory in the correct
 		//	X, Y Cordinates
 		for (int i = 0; i < 4; i++)
-			renderItemstack(inv.getStackInSlot(i), LocX + i * LocOffsetX,
+			renderItemStack(inv.getStackInSlot(i), LocX + i * LocOffsetX,
 				LocY + i * LocOffsetY);
 	}
 	
 	// Draws ItemStack at X and Y Cordinates
-	public void renderItemstack(ItemStack stack, int x, int y)
+	public void renderItemStack(ItemStack stack, int x, int y)
 	{
 		if (stack != null) {
 			// Renders Item Icon.
