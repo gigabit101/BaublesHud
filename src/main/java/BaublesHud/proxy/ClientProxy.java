@@ -11,7 +11,6 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void registerEvents() 
 	{
-		MinecraftForge.EVENT_BUS.register(this);
 		MinecraftForge.EVENT_BUS.register(HudBaubles.instancemain);
 	}
 	

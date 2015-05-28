@@ -6,6 +6,7 @@ import BaublesHud.client.HudBaubles;
 import BaublesHud.config.ConfigBaublesHud;
 import BaublesHud.lib.ModInfo;
 import BaublesHud.proxy.CommonProxy;
+import BaublesHud.proxy.ClientProxy;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
@@ -30,8 +31,8 @@ public class BaublesHud {
 		String path = event.getSuggestedConfigurationFile().getAbsolutePath().replace(ModInfo.MOD_ID, "BaublesHud");
 		config = ConfigBaublesHud.initialize(new File(path));
 		
+		proxy = new ClientProxy();
 		proxy.registerEvents();
 		proxy.registerKeybindings();
 	}
-
 }
