@@ -60,10 +60,13 @@ public class HudBaubles
 			LocY = event.resolution.getScaledHeight() - 15;
 
 		// Following Code Sets Up Offsets and Determines Hud Orientation
-		if (isHorz) { // Horizontal Hud
+		if (isHorz) 
+		{ // Horizoantal Hud
 			LocOffsetX = (isOnLeft ? 15 : -15);
 			LocOffsetY = 0;
-		} else { // Vertical Hud
+		} 
+		else 
+		{ // Vertical Hud
 			LocOffsetX = 0;
 			LocOffsetY = (isOnTop ? 15 : -15);
 		}
@@ -93,7 +96,6 @@ public class HudBaubles
 			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
 			// Renders Item Overlay example durability bar
 			RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
-			stack.getItem().showDurabilityBar(stack);
 		}
 	}
 	
