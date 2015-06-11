@@ -2,6 +2,7 @@ package BaublesHud.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -32,7 +33,7 @@ public class HudBaubles
 	public static int hudPosition = config.hudPosition;
 	
 	@SideOnly(Side.CLIENT)
-	@SubscribeEvent(priority = EventPriority.NORMAL)
+	@SubscribeEvent(priority = EventPriority.LOW)
 	public void onRenderExperienceBar(RenderGameOverlayEvent event) 
 	{
 		if (event.isCancelable() || event.type != ElementType.ALL)
@@ -91,9 +92,17 @@ public class HudBaubles
 	// Draws ItemStack at X and Y Cordinates
 	public void renderItemStack(ItemStack stack, int x, int y)
 	{
-		if (stack != null) {
+        float f = 1.0F;
+
+		if (stack != null) 
+		{
+	        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+	        GL11.glEnable(32826);
+	        RenderHelper.enableStandardItemLighting();
+	        RenderHelper.enableGUIStandardItemLighting();
 			// Renders Item Icon.
 			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
+
 			// Renders Item Overlay example durability bar
 			RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
 		}
