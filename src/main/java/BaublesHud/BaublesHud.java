@@ -31,7 +31,6 @@ public class BaublesHud {
 		String path = event.getSuggestedConfigurationFile().getAbsolutePath().replace(ModInfo.MOD_ID, "BaublesHud");
 		config = ConfigBaublesHud.initialize(new File(path));
 		
-		proxy = new ClientProxy();
 		proxy.registerEvents();
 		proxy.registerKeybindings();
 	}

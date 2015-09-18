@@ -19,5 +19,4 @@ public class ClientProxy extends CommonProxy {
 	{
 		ClientRegistry.registerKeyBinding(KeyBindings.config);
 	}
-
 }
