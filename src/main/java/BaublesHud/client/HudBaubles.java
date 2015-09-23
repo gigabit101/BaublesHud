@@ -9,7 +9,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import org.lwjgl.opengl.GL11;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import BaublesHud.BaublesHud;
 import BaublesHud.config.ConfigBaublesHud;
@@ -25,27 +35,39 @@ public class HudBaubles {
 	public static final HudBaubles instancemain = new HudBaubles();
 	private static Minecraft mc = Minecraft.getMinecraft();
 	public static KeyBindings key;
+	public static HUDSettings hudSettings;
+	private static File hudSettingsFile = new File(Minecraft.getMinecraft().mcDataDir, "BaublesHudSettings");
+
 	public static int LocX;
 	public static int LocY;
 	public static int LocOffsetX;
 	public static int LocOffsetY;
-	public static int hudPosition = config.hudPosition;
+//	public static int hudPosition;
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent(priority = EventPriority.LOW)
 	public void onRenderExperienceBar(RenderGameOverlayEvent event) 
-	{
+	{		
 		if (event.isCancelable() || event.type != ElementType.ALL)
 			return;
-
-		if (key.config.isPressed() == true)
-			hudPosition = (hudPosition + 1) % 8;
+		load();
+		
+		if (key.config.isPressed())
+		{
+			if(hudSettings.HUD_POS != 8)
+				hudSettings.HUD_POS++;
+			if(hudSettings.HUD_POS >= 8)
+				hudSettings.HUD_POS = 0;
+			save();
+			//DEBUG
+//			System.out.println(hudSettings.HUD_POS);
+		}
 
 		// Following Code Determines Hud Position
 		// Setup Flags
-		boolean isOnLeft = ((hudPosition / 2) % 2 == 0);
-		boolean isOnTop = hudPosition <= 3;
-		boolean isHorz = hudPosition % 2 == 0;
+		boolean isOnLeft = ((hudSettings.HUD_POS / 2) % 2 == 0);
+		boolean isOnTop = hudSettings.HUD_POS <= 3;
+		boolean isHorz = hudSettings.HUD_POS % 2 == 0;
 
 		// Left/Right Side Check
 		if (isOnLeft)
@@ -105,5 +127,44 @@ public class HudBaubles {
 		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
+	}
+	
+	public static class HUDSettings
+	{
+		public int HUD_POS = 0;
+	}
+	
+	// load form Json
+	public static void load()
+	{
+		if(!hudSettingsFile.exists())
+		{
+			hudSettings = new HUDSettings();
+		} else {
+			try 
+			{
+				Gson gson = new Gson();
+				BufferedReader reader = new BufferedReader(new FileReader(hudSettingsFile));
+				hudSettings = gson.fromJson(reader, HUDSettings.class);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				hudSettings = new HUDSettings();
+			}
+		}
+	}
+	
+	// Save to Json
+	public static void save()
+	{
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String json = gson.toJson(hudSettings);
+		try 
+		{
+			FileWriter writer = new FileWriter(hudSettingsFile);
+			writer.write(json);
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
