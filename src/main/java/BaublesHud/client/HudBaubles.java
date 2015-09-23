@@ -20,8 +20,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class HudBaubles
-{
+public class HudBaubles {
 	public static ConfigBaublesHud config = ConfigBaublesHud.instance();
 	public static final HudBaubles instancemain = new HudBaubles();
 	private static Minecraft mc = Minecraft.getMinecraft();
@@ -31,7 +30,7 @@ public class HudBaubles
 	public static int LocOffsetX;
 	public static int LocOffsetY;
 	public static int hudPosition = config.hudPosition;
-	
+
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent(priority = EventPriority.LOW)
 	public void onRenderExperienceBar(RenderGameOverlayEvent event) 
@@ -61,19 +60,19 @@ public class HudBaubles
 			LocY = event.resolution.getScaledHeight() - 15;
 
 		// Following Code Sets Up Offsets and Determines Hud Orientation
-		if (isHorz) 
-		{ // Horizoantal Hud
+		if (isHorz) { // Horizoantal Hud
 			LocOffsetX = (isOnLeft ? 15 : -15);
 			LocOffsetY = 0;
-		} 
-		else 
-		{ // Vertical Hud
+		} else { // Vertical Hud
 			LocOffsetX = 0;
 			LocOffsetY = (isOnTop ? 15 : -15);
 		}
 
-		if (mc.inGameHasFocus || (mc.currentScreen != null && mc.gameSettings.showDebugInfo))
-			drawBaublesHudIcons(event.resolution);
+		if (mc.inGameHasFocus || (mc.currentScreen != null))
+		{ 
+			if(!mc.gameSettings.showDebugInfo)
+				drawBaublesHudIcons(event.resolution);
+		}
 	}
 
 	// Draws the Hud
@@ -82,30 +81,29 @@ public class HudBaubles
 		EntityPlayer player = mc.thePlayer;
 		InventoryBaubles inv = PlayerHandler.getPlayerBaubles(player);
 
-		// Renders the ItemStacks from the players baubles inventory in the correct
-		//	X, Y Cordinates
+		// Renders the ItemStacks from the players baubles inventory in the
+		// correct
+		// X, Y Cordinates
 		for (int i = 0; i < 4; i++)
-			renderItemStack(inv.getStackInSlot(i), LocX + i * LocOffsetX,
-				LocY + i * LocOffsetY);
+			renderItemStack(inv.getStackInSlot(i), LocX + i * LocOffsetX, LocY + i * LocOffsetY);
 	}
-	
-	// Draws ItemStack at X and Y Cordinates
-	public void renderItemStack(ItemStack stack, int x, int y)
-	{
-        float f = 1.0F;
 
+	// Draws ItemStack at X and Y Cordinates
+	public void renderItemStack(ItemStack stack, int x, int y) 
+	{
 		if (stack != null) 
 		{
-	        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-	        GL11.glEnable(32826);
-	        RenderHelper.enableStandardItemLighting();
-	        RenderHelper.enableGUIStandardItemLighting();
+			GL11.glEnable(GL11.GL_BLEND);
+			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);			
+			RenderHelper.enableGUIStandardItemLighting();
 			// Renders Item Icon.
 			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
-
 			// Renders Item Overlay example durability bar
 			RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
 		}
+		
+		GL11.glDisable(GL11.GL_LIGHTING);
+		GL11.glDisable(GL11.GL_BLEND);
+		GL11.glColor4f(1F, 1F, 1F, 1F);
 	}
-	
 }
