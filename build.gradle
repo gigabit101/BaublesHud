@@ -17,7 +17,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "2.1.0"
+version = "2.0.0"
 group= "com.gigabit101.BaublesHud" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "BaublesHud"
 
@@ -47,7 +47,8 @@ dependencies {
 
 minecraft {
     version = "11.14.1.1412"
-    assetDir = "eclipse/assets"
+    mappings = "stable_16"
+    runDir = "run"
 }
 
 dependencies {
@@ -56,29 +57,38 @@ dependencies {
 	)
 }
 
-processResources
-{
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
-
-    // replace stuff in mcmod.info, nothing else
+processResources {
+    // replace stuff in the files we want.
     from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-                
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        include '**/*.info'
+        include '**/*.properties'
     }
-        
-    // copy everything else, thats not the mcmod.info
+
+    // copy everything else, thats we didnt do before
     from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+        exclude '**/*.info'
+        exclude '**/*.properties'
     }
 }
 
-jar.doFirst {
-    version = project.minecraft.version + "-" + version;
-    if (System.getenv().BUILD_NUMBER != null) {
-        version += "-" + "${System.getenv().BUILD_NUMBER}"
-    }
+// change the name of my obfuscated jar
+jar {
+    appendix = "universal"
+}
+
+// add a source jar
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+    appendix = 'src'
+}
+
+// because the normal output has been made to be obfuscated
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    appendix = 'deobf'
+}
+
+artifacts {
+    archives sourceJar
+    archives deobfJar
 }

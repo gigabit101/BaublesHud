@@ -29,13 +29,6 @@ public class BaublesHud {
 		String path = event.getSuggestedConfigurationFile().getAbsolutePath().replace(ModInfo.MOD_ID, "BaublesHub");
 		config = ConfigBaublesHud.initialize(new File(path));
 		
-		MinecraftForge.EVENT_BUS.register(this);
-		MinecraftForge.EVENT_BUS.register(HudBaubles.instancemain);
-	}
-
-	@Mod.EventHandler
-	public void init(FMLInitializationEvent event) 
-	{
 		proxy.registerRenders();
 	}
 }
