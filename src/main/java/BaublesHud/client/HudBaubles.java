@@ -1,6 +1,7 @@
 package BaublesHud.client;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -30,7 +31,8 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class HudBaubles {
+public class HudBaubles 
+{
 	public static ConfigBaublesHud config = ConfigBaublesHud.instance();
 	public static final HudBaubles instancemain = new HudBaubles();
 	private static Minecraft mc = Minecraft.getMinecraft();
@@ -42,7 +44,6 @@ public class HudBaubles {
 	public static int LocY;
 	public static int LocOffsetX;
 	public static int LocOffsetY;
-//	public static int hudPosition;
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent(priority = EventPriority.LOW)
@@ -90,7 +91,7 @@ public class HudBaubles {
 			LocOffsetY = (isOnTop ? 15 : -15);
 		}
 
-		if (mc.inGameHasFocus || (mc.currentScreen != null))
+		if (mc.inGameHasFocus || mc.currentScreen == null || (mc.currentScreen instanceof GuiChat) && !mc.gameSettings.showDebugInfo)
 		{ 
 			if(!mc.gameSettings.showDebugInfo)
 				drawBaublesHudIcons(event.resolution);
@@ -122,11 +123,12 @@ public class HudBaubles {
 			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
 			// Renders Item Overlay example durability bar
 			RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
+			
+			GL11.glDisable(GL11.GL_LIGHTING);
+			GL11.glDisable(GL11.GL_BLEND);
+			GL11.glColor4f(1F, 1F, 1F, 1F);
 		}
-		
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+
 	}
 	
 	public static class HUDSettings
