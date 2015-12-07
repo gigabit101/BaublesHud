@@ -7,11 +7,16 @@ import BaublesHud.client.HudBaubles;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.config.Configuration;
 
-public class ConfigBaublesHud {
+public class ConfigBaublesHud 
+{
 	private static ConfigBaublesHud instance = null;
     public static String CATEGORY_HUD = "HUD";
 	
 	public static int hudPosition;
+	public static int hudPositionX;
+	public static int hudPositionY;
+	public static int isVertical;
+	public static int hudScale;
 
     public static Configuration config;
 
@@ -45,9 +50,11 @@ public class ConfigBaublesHud {
     
     public static void Configs() 
     {
-        hudPosition = config.get(CATEGORY_HUD,"hud position",
-                0,"render the players bauble hud in different position on the screen").getInt();
-       
+       save();
+    }
+    
+    public static void save()
+    {
         if (config.hasChanged())
             config.save();
     }

@@ -3,16 +3,19 @@ package BaublesHud;
 import java.io.File;
 
 import BaublesHud.client.HudBaubles;
+import BaublesHud.client.KeyInputEventHandler;
 import BaublesHud.config.ConfigBaublesHud;
 import BaublesHud.lib.ModInfo;
 import BaublesHud.proxy.CommonProxy;
 import BaublesHud.proxy.ClientProxy;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
 
 @Mod(name = ModInfo.MOD_NAME, modid = ModInfo.MOD_ID, version = ModInfo.MOD_VERSION, dependencies = ModInfo.MOD_DEPENDENCIES)
 public class BaublesHud {

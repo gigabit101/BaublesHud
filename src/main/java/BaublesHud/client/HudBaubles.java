@@ -37,13 +37,15 @@ public class HudBaubles
 	public static final HudBaubles instancemain = new HudBaubles();
 	private static Minecraft mc = Minecraft.getMinecraft();
 	public static KeyBindings key;
-	public static HUDSettings hudSettings;
-	private static File hudSettingsFile = new File(Minecraft.getMinecraft().mcDataDir, "BaublesHudSettings");
 
 	public static int LocX;
 	public static int LocY;
+	public static int isVertical;
+	
 	public static int LocOffsetX;
 	public static int LocOffsetY;
+	
+	public static int scale;
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent(priority = EventPriority.LOW)
@@ -51,47 +53,23 @@ public class HudBaubles
 	{		
 		if (event.isCancelable() || event.type != ElementType.ALL)
 			return;
-		load();
 		
-		if (key.config.isPressed())
+		LocX = ConfigBaublesHud.hudPositionX;
+		LocY = ConfigBaublesHud.hudPositionY;
+		isVertical = ConfigBaublesHud.isVertical;
+		scale = ConfigBaublesHud.hudScale;
+		if(isVertical == 0)
 		{
-			if(hudSettings.HUD_POS != 8)
-				hudSettings.HUD_POS++;
-			if(hudSettings.HUD_POS >= 8)
-				hudSettings.HUD_POS = 0;
-			save();
-			//DEBUG
-//			System.out.println(hudSettings.HUD_POS);
-		}
-
-		// Following Code Determines Hud Position
-		// Setup Flags
-		boolean isOnLeft = ((hudSettings.HUD_POS / 2) % 2 == 0);
-		boolean isOnTop = hudSettings.HUD_POS <= 3;
-		boolean isHorz = hudSettings.HUD_POS % 2 == 0;
-
-		// Left/Right Side Check
-		if (isOnLeft)
-			LocX = 1;
-		else
-			LocX = event.resolution.getScaledWidth() - 15;
-
-		// Top/Bottom Check
-		if (isOnTop)
-			LocY = 1;
-		else
-			LocY = event.resolution.getScaledHeight() - 15;
-
-		// Following Code Sets Up Offsets and Determines Hud Orientation
-		if (isHorz) { // Horizoantal Hud
-			LocOffsetX = (isOnLeft ? 15 : -15);
-			LocOffsetY = 0;
-		} else { // Vertical Hud
+			LocOffsetY = 15;
 			LocOffsetX = 0;
-			LocOffsetY = (isOnTop ? 15 : -15);
+		}
+		if(isVertical == 1)
+		{
+			LocOffsetY = 0;
+			LocOffsetX = 15;
 		}
 
-		if (mc.inGameHasFocus || mc.currentScreen == null || (mc.currentScreen instanceof GuiChat) && !mc.gameSettings.showDebugInfo)
+		if (mc.inGameHasFocus || mc.currentScreen == null || (mc.currentScreen instanceof GuiChat) || (mc.currentScreen instanceof GuiHud) && !mc.gameSettings.showDebugInfo)
 		{ 
 			if(!mc.gameSettings.showDebugInfo)
 				drawBaublesHudIcons(event.resolution);
@@ -108,7 +86,9 @@ public class HudBaubles
 		// correct
 		// X, Y Cordinates
 		for (int i = 0; i < 4; i++)
+		{
 			renderItemStack(inv.getStackInSlot(i), LocX + i * LocOffsetX, LocY + i * LocOffsetY);
+		}
 	}
 
 	// Draws ItemStack at X and Y Cordinates
@@ -117,56 +97,19 @@ public class HudBaubles
 		if (stack != null) 
 		{
 			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);			
+			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);	
+
 			RenderHelper.enableGUIStandardItemLighting();
 			// Renders Item Icon.
 			RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
+
 			// Renders Item Overlay example durability bar
 			RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
-			
+
+
 			GL11.glDisable(GL11.GL_LIGHTING);
 			GL11.glDisable(GL11.GL_BLEND);
 			GL11.glColor4f(1F, 1F, 1F, 1F);
-		}
-
-	}
-	
-	public static class HUDSettings
-	{
-		public int HUD_POS = 0;
-	}
-	
-	// load form Json
-	public static void load()
-	{
-		if(!hudSettingsFile.exists())
-		{
-			hudSettings = new HUDSettings();
-		} else {
-			try 
-			{
-				Gson gson = new Gson();
-				BufferedReader reader = new BufferedReader(new FileReader(hudSettingsFile));
-				hudSettings = gson.fromJson(reader, HUDSettings.class);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-				hudSettings = new HUDSettings();
-			}
-		}
-	}
-	
-	// Save to Json
-	public static void save()
-	{
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String json = gson.toJson(hudSettings);
-		try 
-		{
-			FileWriter writer = new FileWriter(hudSettingsFile);
-			writer.write(json);
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 }
