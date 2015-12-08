@@ -32,11 +32,10 @@ public class GuiHud extends GuiScreen
 		
 		buttonList.clear();
 		buttonList.add(new GuiButton(0, width / 2 - 100, height / 2 + 30, button1));
-		buttonList.add(new GuiButton(1, width / 2 - 100, height / 2 + 50, "SAVE"));
 //		buttonList.add(new GuiButton(2, width / 2 + 80, height / 2 + 30, 20, 20, "+"));
 //		buttonList.add(new GuiButton(3, width / 2 - 100, height / 2 + 30, 20, 20, "-"));
 //		buttonList.add(new GuiButton(4, width / 2 - 80, height / 2 + 30, 160, 20, "SCALE"));
-		buttonList.add(new GuiButton(5, width / 2 - 100, height / 2 + 70, button2));
+		buttonList.add(new GuiButton(5, width / 2 - 100, height / 2 + 50, button2));
 
 	}
 	
@@ -80,15 +79,6 @@ public class GuiHud extends GuiScreen
 				ConfigBaublesHud.isVertical = 0;
 			}
 		}
-		if(button.id == 1)
-		{
-			ConfigBaublesHud.config.get(ConfigBaublesHud.CATEGORY_HUD, "hud position X", 0).set(ConfigBaublesHud.hudPositionX);
-			ConfigBaublesHud.config.get(ConfigBaublesHud.CATEGORY_HUD, "hud position Y", 0).set(ConfigBaublesHud.hudPositionY);
-			ConfigBaublesHud.config.get(ConfigBaublesHud.CATEGORY_HUD, "hud is vertical", 0).set(ConfigBaublesHud.isVertical);
-//			ConfigBaublesHud.config.get(ConfigBaublesHud.CATEGORY_HUD, "hud scale", 0).set(ConfigBaublesHud.hudScale);
-			ConfigBaublesHud.config.get(ConfigBaublesHud.CATEGORY_HUD, "enable", 0).set(ConfigBaublesHud.enable);
-			ConfigBaublesHud.config.save();
-		}
 //		if(button.id == 2)
 //		{
 //			ConfigBaublesHud.hudScale++;
@@ -108,5 +98,17 @@ public class GuiHud extends GuiScreen
 				ConfigBaublesHud.enable = 0;
 			}
 		}
+	}
+	
+	@Override
+	public void onGuiClosed() 
+	{
+		super.onGuiClosed();
+		ConfigBaublesHud.config.get(ConfigBaublesHud.CATEGORY_HUD, "hud position X", 0).set(ConfigBaublesHud.hudPositionX);
+		ConfigBaublesHud.config.get(ConfigBaublesHud.CATEGORY_HUD, "hud position Y", 0).set(ConfigBaublesHud.hudPositionY);
+		ConfigBaublesHud.config.get(ConfigBaublesHud.CATEGORY_HUD, "hud is vertical", 0).set(ConfigBaublesHud.isVertical);
+//		ConfigBaublesHud.config.get(ConfigBaublesHud.CATEGORY_HUD, "hud scale", 0).set(ConfigBaublesHud.hudScale);
+		ConfigBaublesHud.config.get(ConfigBaublesHud.CATEGORY_HUD, "enable", 0).set(ConfigBaublesHud.enable);
+		ConfigBaublesHud.config.save();
 	}
 }
