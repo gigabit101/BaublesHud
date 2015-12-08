@@ -1,5 +1,14 @@
 package BaublesHud.client;
 
+import org.lwjgl.opengl.GL11;
+
+import BaublesHud.config.ConfigBaublesHud;
+import baubles.common.container.InventoryBaubles;
+import baubles.common.lib.PlayerHandler;
+import cpw.mods.fml.common.eventhandler.EventPriority;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.ScaledResolution;
@@ -9,27 +18,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import org.lwjgl.opengl.GL11;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import BaublesHud.BaublesHud;
-import BaublesHud.config.ConfigBaublesHud;
-import baubles.common.container.InventoryBaubles;
-import baubles.common.lib.PlayerHandler;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class HudBaubles 
 {
@@ -71,7 +59,7 @@ public class HudBaubles
 
 		if (mc.inGameHasFocus || mc.currentScreen == null || (mc.currentScreen instanceof GuiChat) || (mc.currentScreen instanceof GuiHud) && !mc.gameSettings.showDebugInfo)
 		{ 
-			if(!mc.gameSettings.showDebugInfo)
+			if(ConfigBaublesHud.enable == 0)
 				drawBaublesHudIcons(event.resolution);
 		}
 	}
@@ -105,7 +93,6 @@ public class HudBaubles
 
 			// Renders Item Overlay example durability bar
 			RenderItem.getInstance().renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, stack, x, y);
-
 
 			GL11.glDisable(GL11.GL_LIGHTING);
 			GL11.glDisable(GL11.GL_BLEND);

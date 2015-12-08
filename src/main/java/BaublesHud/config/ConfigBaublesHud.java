@@ -2,9 +2,6 @@ package BaublesHud.config;
 
 import java.io.File;
 
-import BaublesHud.BaublesHud;
-import BaublesHud.client.HudBaubles;
-import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.config.Configuration;
 
 public class ConfigBaublesHud 
@@ -17,6 +14,7 @@ public class ConfigBaublesHud
 	public static int hudPositionY;
 	public static int isVertical;
 	public static int hudScale;
+	public static int enable;
 
     public static Configuration config;
 

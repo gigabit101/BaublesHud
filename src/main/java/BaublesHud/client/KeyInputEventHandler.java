@@ -3,7 +3,6 @@ package BaublesHud.client;
 import BaublesHud.BaublesHud;
 import BaublesHud.GuiHandler;
 import BaublesHud.lib.Key;
-import BaublesHud.util.LogHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
 import net.minecraft.client.Minecraft;

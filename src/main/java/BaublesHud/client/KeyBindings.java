@@ -3,7 +3,6 @@ package BaublesHud.client;
 import org.lwjgl.input.Keyboard;
 
 import BaublesHud.lib.ModInfo;
-import baubles.common.Config;
 import net.minecraft.client.settings.KeyBinding;
 
 public class KeyBindings{

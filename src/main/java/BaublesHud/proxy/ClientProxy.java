@@ -1,14 +1,13 @@
 package BaublesHud.proxy;
 
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.network.NetworkRegistry;
 import BaublesHud.BaublesHud;
 import BaublesHud.GuiHandler;
 import BaublesHud.client.HudBaubles;
 import BaublesHud.client.KeyBindings;
 import BaublesHud.client.KeyInputEventHandler;
-import net.minecraft.client.Minecraft;
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraftforge.common.MinecraftForge;
 
 public class ClientProxy extends CommonProxy {
