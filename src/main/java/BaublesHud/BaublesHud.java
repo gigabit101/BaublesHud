@@ -30,5 +30,6 @@ public class BaublesHud {
 		config = ConfigBaublesHud.initialize(new File(path));
 		
 		proxy.registerRenders();
+		proxy.registerKeybindings();
 	}
 }
