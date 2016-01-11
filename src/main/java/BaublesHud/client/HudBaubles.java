@@ -57,6 +57,8 @@ public class HudBaubles
 	
 	public static int hight;
 	public static int width;
+	public static double scale;
+	public static float scaleF;
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent(priority = EventPriority.LOW)
@@ -64,12 +66,11 @@ public class HudBaubles
 	{		
 		if (event.isCancelable() || event.type != ElementType.ALL)
 			return;
-		
 		LocX = ConfigBaublesHud.hudPositionX;
 		LocY = ConfigBaublesHud.hudPositionY;
 		isVertical = ConfigBaublesHud.isVertical;
-//		System.out.println("" + LocX);
-//		scale = ConfigBaublesHud.hudScale;
+		scale = ConfigBaublesHud.hudScale;
+		scaleF = (float) scale;
 		if(isVertical == 0)
 		{
 			LocOffsetY = 15;
@@ -88,9 +89,9 @@ public class HudBaubles
 		if (mc.inGameHasFocus || mc.currentScreen == null || (mc.currentScreen instanceof GuiChat) || (mc.currentScreen instanceof GuiHud) && !mc.gameSettings.showDebugInfo)
 		{ 
 			if(ConfigBaublesHud.enable == 0)
+			{
 				drawBaublesHudIcons(event.resolution);
-			if(mc.currentScreen instanceof GuiHud || ConfigBaublesHud.showBox == 1)
-				GuiUtil.drawTooltipBox(LocX - 1, LocY - 1, hight, width);
+			}
 		}
 	}
 
@@ -113,13 +114,27 @@ public class HudBaubles
 		if (stack != null) 
 		{
 			GL11.glEnable(GL11.GL_BLEND);
+			GL11.glPushMatrix();
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);			
 			RenderHelper.enableGUIStandardItemLighting();
-			
+
+			scale(scaleF, x, y);
+			if(mc.currentScreen instanceof GuiHud || ConfigBaublesHud.showBox == 1)
+				GuiUtil.drawTooltipBox(LocX - 1, LocY - 1, hight, width);
+
 			RenderItem itemRenderer = Minecraft.getMinecraft().getRenderItem();
 			itemRenderer.renderItemAndEffectIntoGUI(stack, x, y);
-			
 			GL11.glDisable(GL11.GL_LIGHTING);
+			GL11.glPopMatrix();
+
 		}		
 	}
+	 
+	public void scale(float f, int x, int y) 
+	{
+//		GL11.glTranslatef(x, y, 10.0F);
+//		GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
+		GL11.glScalef(f, f, f);
+	}
+
 }

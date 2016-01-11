@@ -12,7 +12,7 @@ public class ConfigBaublesHud
 	public static int hudPositionX;
 	public static int hudPositionY;
 	public static int isVertical;
-	public static int hudScale;
+	public static double hudScale;
 	public static int enable;
 	public static int showBox;
 
@@ -51,6 +51,7 @@ public class ConfigBaublesHud
     	hudPositionX = config.get(CATEGORY_HUD,"hud position X", 0).getInt();
     	hudPositionY = config.get(CATEGORY_HUD,"hud position Y", 0).getInt();
     	isVertical = config.get(CATEGORY_HUD,"hud is vertical", 0).getInt();
+    	hudScale = config.get(CATEGORY_HUD,"hud scale", 0).getDouble();
     	enable = config.get(CATEGORY_HUD,"enable", 0).getInt();
     	showBox = config.get(CATEGORY_HUD,"box", 0).getInt();
 		

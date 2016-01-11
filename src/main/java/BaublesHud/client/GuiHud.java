@@ -2,6 +2,8 @@ package BaublesHud.client;
 
 import java.io.IOException;
 
+import org.lwjgl.input.Keyboard;
+
 import BaublesHud.ConfigBaublesHud;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -34,9 +36,9 @@ public class GuiHud extends GuiScreen
 		
 		buttonList.clear();
 		buttonList.add(new GuiButton(0, width / 2 - 100, height / 2 + 30, button1));
-//		buttonList.add(new GuiButton(2, width / 2 + 80, height / 2 + 30, 20, 20, "+"));
-//		buttonList.add(new GuiButton(3, width / 2 - 100, height / 2 + 30, 20, 20, "-"));
-//		buttonList.add(new GuiButton(4, width / 2 - 80, height / 2 + 30, 160, 20, "SCALE"));
+		buttonList.add(new GuiButton(2, width / 2 + 80, height / 2 + 10, 20, 20, "+"));
+		buttonList.add(new GuiButton(3, width / 2 - 100, height / 2 + 10, 20, 20, "-"));
+		buttonList.add(new GuiButton(4, width / 2 - 80, height / 2 + 10, 160, 20, "SCALE " + ConfigBaublesHud.hudScale));
 		buttonList.add(new GuiButton(5, width / 2 - 100, height / 2 + 50, button2));
 		buttonList.add(new GuiButton(6, width / 2 - 100, height / 2 + 70, "TOGGLE BOX"));
 
@@ -59,7 +61,7 @@ public class GuiHud extends GuiScreen
 	{
 		super.mouseClickMove(x, y, button, time);
 		if(!dragginghud && time >= 120)
-		{
+		{		
 			dragginghud = false;
 			ConfigBaublesHud.hudPositionX = x;
 			ConfigBaublesHud.hudPositionY = y;
@@ -70,7 +72,6 @@ public class GuiHud extends GuiScreen
 	@Override
 	protected void actionPerformed(GuiButton button) 
 	{
-//		super.actionPerformed(button);
 		if(button.id == 0)
 		{
 			if(ConfigBaublesHud.isVertical == 0)
@@ -82,14 +83,20 @@ public class GuiHud extends GuiScreen
 				ConfigBaublesHud.isVertical = 0;
 			}
 		}
-//		if(button.id == 2)
-//		{
-//			ConfigBaublesHud.hudScale++;
-//		}
-//		if(button.id == 3)
-//		{
-//			ConfigBaublesHud.hudScale--;
-//		}
+		if(button.id == 2)
+		{
+			if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
+				ConfigBaublesHud.hudScale++;
+			else
+				ConfigBaublesHud.hudScale += 0.1;
+		}
+		if(button.id == 3)
+		{
+			if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
+				ConfigBaublesHud.hudScale--;
+			else
+				ConfigBaublesHud.hudScale -= 0.1;
+		}
 		if(button.id == 5)
 		{
 			if(ConfigBaublesHud.enable == 0)
@@ -121,7 +128,7 @@ public class GuiHud extends GuiScreen
 		ConfigBaublesHud.config.get(ConfigBaublesHud.CATEGORY_HUD, "hud position X", 0).set(ConfigBaublesHud.hudPositionX);
 		ConfigBaublesHud.config.get(ConfigBaublesHud.CATEGORY_HUD, "hud position Y", 0).set(ConfigBaublesHud.hudPositionY);
 		ConfigBaublesHud.config.get(ConfigBaublesHud.CATEGORY_HUD, "hud is vertical", 0).set(ConfigBaublesHud.isVertical);
-//		ConfigBaublesHud.config.get(ConfigBaublesHud.CATEGORY_HUD, "hud scale", 0).set(ConfigBaublesHud.hudScale);
+		ConfigBaublesHud.config.get(ConfigBaublesHud.CATEGORY_HUD, "hud scale", 0).set(ConfigBaublesHud.hudScale);
 		ConfigBaublesHud.config.get(ConfigBaublesHud.CATEGORY_HUD, "enable", 0).set(ConfigBaublesHud.enable);
 		ConfigBaublesHud.config.get(ConfigBaublesHud.CATEGORY_HUD, "box", 0).set(ConfigBaublesHud.enable);
 		ConfigBaublesHud.config.save();
