@@ -38,6 +38,7 @@ import com.google.gson.GsonBuilder;
 
 import BaublesHud.BaublesHud;
 import BaublesHud.ConfigBaublesHud;
+import BaublesHud.util.GuiUtil;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
 
@@ -53,6 +54,9 @@ public class HudBaubles
 	
 	public static int LocOffsetX;
 	public static int LocOffsetY;
+	
+	public static int hight;
+	public static int width;
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent(priority = EventPriority.LOW)
@@ -64,22 +68,29 @@ public class HudBaubles
 		LocX = ConfigBaublesHud.hudPositionX;
 		LocY = ConfigBaublesHud.hudPositionY;
 		isVertical = ConfigBaublesHud.isVertical;
+//		System.out.println("" + LocX);
 //		scale = ConfigBaublesHud.hudScale;
 		if(isVertical == 0)
 		{
 			LocOffsetY = 15;
 			LocOffsetX = 0;
+			hight = 17;
+			width = 62;
 		}
 		if(isVertical == 1)
 		{
 			LocOffsetY = 0;
 			LocOffsetX = 15;
+			hight = 62;
+			width = 17;
 		}
 
 		if (mc.inGameHasFocus || mc.currentScreen == null || (mc.currentScreen instanceof GuiChat) || (mc.currentScreen instanceof GuiHud) && !mc.gameSettings.showDebugInfo)
 		{ 
 			if(ConfigBaublesHud.enable == 0)
 				drawBaublesHudIcons(event.resolution);
+			if(mc.currentScreen instanceof GuiHud || ConfigBaublesHud.showBox == 1)
+				GuiUtil.drawTooltipBox(LocX - 1, LocY - 1, hight, width);
 		}
 	}
 

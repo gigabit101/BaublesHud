@@ -38,6 +38,7 @@ public class GuiHud extends GuiScreen
 //		buttonList.add(new GuiButton(3, width / 2 - 100, height / 2 + 30, 20, 20, "-"));
 //		buttonList.add(new GuiButton(4, width / 2 - 80, height / 2 + 30, 160, 20, "SCALE"));
 		buttonList.add(new GuiButton(5, width / 2 - 100, height / 2 + 50, button2));
+		buttonList.add(new GuiButton(6, width / 2 - 100, height / 2 + 70, "TOGGLE BOX"));
 
 	}
 	
@@ -100,6 +101,17 @@ public class GuiHud extends GuiScreen
 				ConfigBaublesHud.enable = 0;
 			}
 		}
+		if(button.id == 6)
+		{
+			if(ConfigBaublesHud.showBox == 0)
+			{
+				ConfigBaublesHud.showBox = 1;
+			}
+			else if(ConfigBaublesHud.showBox == 1)
+			{
+				ConfigBaublesHud.showBox = 0;
+			}
+		}
 	}
 	
 	@Override
@@ -111,6 +123,7 @@ public class GuiHud extends GuiScreen
 		ConfigBaublesHud.config.get(ConfigBaublesHud.CATEGORY_HUD, "hud is vertical", 0).set(ConfigBaublesHud.isVertical);
 //		ConfigBaublesHud.config.get(ConfigBaublesHud.CATEGORY_HUD, "hud scale", 0).set(ConfigBaublesHud.hudScale);
 		ConfigBaublesHud.config.get(ConfigBaublesHud.CATEGORY_HUD, "enable", 0).set(ConfigBaublesHud.enable);
+		ConfigBaublesHud.config.get(ConfigBaublesHud.CATEGORY_HUD, "box", 0).set(ConfigBaublesHud.enable);
 		ConfigBaublesHud.config.save();
 	}
 }

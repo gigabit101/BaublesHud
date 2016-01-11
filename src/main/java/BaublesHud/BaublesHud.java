@@ -31,5 +31,11 @@ public class BaublesHud {
 		
 		proxy.registerRenders();
 		proxy.registerKeybindings();
+		config.config.load();
+//		ConfigBaublesHud.config.get(ConfigBaublesHud.CATEGORY_HUD, "hud position X", 0).getInt(ConfigBaublesHud.hudPositionX);
+//		ConfigBaublesHud.config.get(ConfigBaublesHud.CATEGORY_HUD, "hud position Y", 0).getInt(ConfigBaublesHud.hudPositionY);
+//		ConfigBaublesHud.config.get(ConfigBaublesHud.CATEGORY_HUD, "hud is vertical", 0).getInt(ConfigBaublesHud.isVertical);
+////		ConfigBaublesHud.config.get(ConfigBaublesHud.CATEGORY_HUD, "hud scale", 0).set(ConfigBaublesHud.hudScale);
+//		ConfigBaublesHud.config.get(ConfigBaublesHud.CATEGORY_HUD, "enable", 0).getInt(ConfigBaublesHud.enable);
 	}
 }
