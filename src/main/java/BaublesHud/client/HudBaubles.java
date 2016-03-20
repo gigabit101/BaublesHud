@@ -1,46 +1,24 @@
 package BaublesHud.client;
 
+import org.lwjgl.opengl.GL11;
+
+import BaublesHud.ConfigBaublesHud;
+import BaublesHud.util.GuiUtil;
+import baubles.common.container.InventoryBaubles;
+import baubles.common.lib.PlayerHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.ItemModelMesher;
-import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.resources.model.IBakedModel;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import org.lwjgl.opengl.GL11;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import BaublesHud.BaublesHud;
-import BaublesHud.ConfigBaublesHud;
-import BaublesHud.util.GuiUtil;
-import baubles.common.container.InventoryBaubles;
-import baubles.common.lib.PlayerHandler;
 
 public class HudBaubles
 {
@@ -118,7 +96,7 @@ public class HudBaubles
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);			
 			RenderHelper.enableGUIStandardItemLighting();
 
-			scale(scaleF, x, y);
+//			scale(scaleF, x, y);
 			if(mc.currentScreen instanceof GuiHud || ConfigBaublesHud.showBox == 1)
 				GuiUtil.drawTooltipBox(LocX - 1, LocY - 1, hight, width);
 
@@ -130,11 +108,10 @@ public class HudBaubles
 		}		
 	}
 	 
-	public void scale(float f, int x, int y) 
-	{
+//	public void scale(float f, int x, int y) 
+//	{
 //		GL11.glTranslatef(x, y, 10.0F);
 //		GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
-		GL11.glScalef(f, f, f);
-	}
-
+//		GL11.glScalef(f, f, f);
+//	}
 }

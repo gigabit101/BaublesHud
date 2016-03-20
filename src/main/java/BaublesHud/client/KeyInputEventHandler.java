@@ -31,7 +31,6 @@ public class KeyInputEventHandler
         Minecraft mc = Minecraft.getMinecraft();
         if (mc.currentScreen != null)
             return;
-        System.out.println("HELLP");
         mc.thePlayer.openGui(BaublesHud.instance, GuiHandler.hudGui, mc.theWorld, 0, 0, 0);
 	}
 }
