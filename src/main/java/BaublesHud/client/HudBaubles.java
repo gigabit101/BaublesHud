@@ -1,7 +1,5 @@
 package BaublesHud.client;
 
-import org.lwjgl.opengl.GL11;
-
 import BaublesHud.ConfigBaublesHud;
 import BaublesHud.util.GuiUtil;
 import baubles.common.container.InventoryBaubles;
@@ -19,6 +17,7 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 
 public class HudBaubles
 {
@@ -42,7 +41,7 @@ public class HudBaubles
 	@SubscribeEvent(priority = EventPriority.LOW)
 	public void onRenderExperienceBar(RenderGameOverlayEvent event) 
 	{		
-		if (event.isCancelable() || event.type != ElementType.ALL)
+		if (event.isCancelable() || event.getType() != ElementType.ALL)
 			return;
 		LocX = ConfigBaublesHud.hudPositionX;
 		LocY = ConfigBaublesHud.hudPositionY;
@@ -68,7 +67,7 @@ public class HudBaubles
 		{ 
 			if(ConfigBaublesHud.enable == 0)
 			{
-				drawBaublesHudIcons(event.resolution);
+				drawBaublesHudIcons(event.getResolution());
 			}
 		}
 	}
