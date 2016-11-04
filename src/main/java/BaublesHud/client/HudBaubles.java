@@ -81,7 +81,7 @@ public class HudBaubles
 		// Renders the ItemStacks from the players baubles inventory in the
 		// correct
 		// X, Y Cordinates
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 7; i++)
 			renderItemStack(inv.getStackInSlot(i), LocX + i * LocOffsetX, LocY + i * LocOffsetY);
 	}
 
